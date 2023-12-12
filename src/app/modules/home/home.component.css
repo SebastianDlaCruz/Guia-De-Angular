@@ -1,0 +1,39 @@
+.home-header{
+  padding: 20px;
+  text-align: center;
+}
+
+.home-main{
+  text-align: center;
+}
+
+.home-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.home-container__title{
+  margin:0px 0px 60px 0px;
+  font-size: var(--step-0);
+}
+
+.home-container__strong{
+  font-size: var(--step-5);
+}
+
+
+.home-objetivo__container{
+  text-align: center;
+}
+
+
+.home-objetivo__subtitle{
+ font-size: var(--step-3);
+}
+
+.home-objetivo__paragraph{
+  padding: 30px;
+  font-size: var(--step-6)
+}

@@ -1,0 +1,195 @@
+<h1 class="title">Componentes</h1>
+<div class="text-center">
+  <p>Un componente en angular esta formado por 3 tipos de archivos.</p>
+  <ul class="list-style-none">
+    <li>Una plantilla <b>HTML</b></li>
+    <li>Una plantilla <b>CSS</b></li>
+    <li>Un archivo <b>TS</b> que define el comportamiento</li>
+  </ul>
+  <p>Un componente se puede crear de dos maneras. Usando el cli de angular o de manera manual.</p>
+  <ul class="list-style-none">
+    <li><b>Cli:</b> <code> ng g c miComponente / ng generate componente miComponente </code></li>
+    <li><b>Manual:</b> Generando los 3 archivo manualmente. ¯\(ツ)/¯ </li>
+  </ul>
+</div>
+
+<main>
+  <section id="index">
+    <h2 class="sub-title-color">Breve visualización de un componente</h2>
+    <article>
+      <h3>En el archivo .ts</h3>
+      <p>Este es el archivo que proporciona funcionalidad al componente atra vez de una clase </p>
+      <app-code-example Code="
+      @Component({
+        selector: 'app-component-overview',
+        templateUrl: './component-overview.component.html',
+        styleUrls: ['./component-overview.component.css']
+      })
+      export class ComponentOverviewComponent {
+
+      }
+      " />
+
+      <h3>En el archivo .html</h3>
+      <p>Este componente se encuentra dentro del .html del componente app </p>
+      <app-code-example Code="
+        < app-component-overview/>
+      " />
+
+      <h3>Decorador @Component</h3>
+      <p>El decorador <b>@Component</b> Nos proporciona funcionalidad extra a la clase con el objetivo de dotarla con
+        los siguientes
+        funcionalidades </p>
+
+      <p><b>Importante:</b> Un decorador proporcionan una forma de extender y configurar el comportamiento de estos
+        elementos de manera
+        declarativa </p>
+
+      <ul>
+        <li><b>selector :</b> Nombre del componente como deberá ser llamado </li>
+        <li><b>templateUrl:</b> Dirección en donde se ubica nuestra plantilla .html </li>
+        <li><b>styleUrl:</b> Dirección en donde se ubica nuestra plantilla .css</li>
+      </ul>
+
+      <p>Un componente debe pertenecer a un <b>NgModule</b> para que este disponible a otro componente o aplicación.
+      </p>
+      <p>Existen mas propiedades en el decorador componente, los vamos a ir viendo mas adelante . Para mas información :
+        <a href="https://angular.io/api/core/Component#description" target="_blank" rel="documentación de angular ">doc
+          angular componentes</a>
+      </p>
+
+    </article>
+  </section>
+
+  <section id="ciclo-vida">
+    <h2 class="sub-title-color">Ciclo de vida del componente</h2>
+
+    <p>Con ciclo de vida nos referimos a las diversas etapas que experimenta nuestros componente , desde su creación
+      hasta su destrucción.
+      Veremos todos los ciclos de vida que tiene angular. Que son 8 😐 ( creo que hasta la version 17 llegan a 10 :V )
+    </p>
+
+    <p>Después de que su aplicación crea una instancia de un componente o directiva llamando a su constructor, Angular
+      llama a los métodos de enlace que ha implementado en el punto apropiado del ciclo de vida de esa instancia.
+      Podríamos decir que el constructor es la fase donde el componente se monta </p>
+
+    <strong>Veremos los ciclos de vida por orden de ejecución </strong>
+
+    <article>
+      <h3>ngOnChanges</h3>
+      <p>Este ciclo de vida responde cuando una propiedad de entrada (@Input) se ejecuta.
+        este método recibe un objeto simpleChanges con valores de las propiedades actuales y anteriores</p>
+
+      <app-code-example Code="
+        @Component({
+          selector: 'app-component-overview',
+          templateUrl: './component-overview.component.html',
+          styleUrls: ['./component-overview.component.css']
+        })
+        export class ComponentOverviewComponent implements onChanges{
+          @Input() prop!:string
+          ngOnChanges(changes: SimpleChanges): void {
+            ejecuta cualquier tipo de operación
+          }
+        }
+        " />
+      <strong>No te preocupes si no entiendes que es @Input. Este cumple la funcionalidad de pasar valores de un
+        componente
+        padre a uno hijo .
+        Luego lo veremos con detalle.
+      </strong>
+    </article>
+    <article>
+      <h3>ngOnInit</h3>
+      <p>
+        Este ciclo de vida responde cuando la directiva o componente se inicialice.Después del ngOnchage, esto quiere
+        decir
+        que si existen tanto ngOnchanges y ngOnInit . ngOnchanges se resolverá primero y luego ngOnInit
+      </p>
+      <app-code-example Code="
+        @Component({
+          selector: 'app-component-overview',
+          templateUrl: './component-overview.component.html',
+          styleUrls: ['./component-overview.component.css']
+        })
+        export class ComponentOverviewComponent implements OnInit{
+          ngOnInit(): void {
+            ejecuta cualquier tipo de operación
+          }
+        }
+        " />
+    </article>
+    <article>
+      <h3>ngDoCheck</h3>
+      <p>
+        Este ciclo de vida responde cuando detecte y actué cambios en los componentes , sin la necesidad que intervenga
+        un @Input. Haciendo que detecte cualquier cambio que afecte al componente. </p>
+      <app-code-example Code=" @Component({
+          selector: 'app-component-overview',
+          templateUrl: './component-overview.component.html',
+          styleUrls: ['./component-overview.component.css']
+        })
+        export class ComponentOverviewComponent implements OnDoCheck{
+          ngOnDoCheck(): void {
+            ejecuta cualquier tipo de operación
+          }
+        }
+        " />
+    </article>
+
+    <article>
+      <h3>ngAfterContentInit</h3>
+      <p>
+        Este ciclo de vida responde cuando angular proyecte contenido externo a la vista principal del contenedor.
+        Para esto necesitamos demostrar mas de un ejemplo :P. <br />
+        Tengamos en cuanta los siguiente . Creemos un componente padre llamado <b>Father</b> XD</p>
+
+      <h3>En el .html de componente padre</h3>
+
+      <app-code-example Code="
+        <div>projected content begins</div>
+          <ng-content></ng-content>
+        <div>projected content ends</div>
+        " />
+
+      <p><strong>ng-content</strong>: Esta etiqueta es un marcador de posición para el contendió externo. Le dice a
+        angular donde insertar el contenido externo al componente.
+        Si esta familiarizado con react esto seria el equivalente usar el childrent como prop y renderizarlo </p>
+
+      <app-code-example Code=" @Component({
+          selector: 'app-component-overview',
+          templateUrl: './component-overview.component.html',
+          styleUrls: ['./component-overview.component.css']
+        })
+        export class ComponentOverviewComponent implements OnDoCheck{
+          ngOnDoCheck(): void {
+            ejecuta cualquier tipo de operación
+          }
+        }
+        " />
+
+      <p>Ahora crearemos otro componente llamado Children.En nuestra carpeta app.html hagamos lo siguiente </p>
+
+      <app-code-example Code="
+            <app-father>
+              <app-children/>
+            </app-father>
+        " />
+
+      <p>Perfecto hasta tenemos un componente al que se le esta pasando otro componente como contenido . Tratemos de
+        acceder a los valores de ese componente atravez del padre </p>
+
+    </article>
+
+    <app-code-example Code="
+    export class FatherComponent implements  AfterContentInit {
+      @ContentChild(ChildComponent) contentChild!: ChildComponent;
+      ngAfterContentInit() {
+        // contentChild is set after the content has been initialized
+        this.contentChild.name
+      }
+    }" />
+  </section>
+</main>
+
+<app-menu-desplegable [itemsMenu]="items" />

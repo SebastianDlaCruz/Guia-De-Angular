@@ -1,0 +1,15 @@
+.desplegable{
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 228px;
+  min-height: 100vh;
+  background-color: rgb(54, 54, 54);
+}
+
+.menu li{
+  list-style-type: none;
+}
+.menu li a {
+  color: #fff;
+}

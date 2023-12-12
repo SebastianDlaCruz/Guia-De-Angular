@@ -1,0 +1,26 @@
+.scroll-down{
+  height: 65px;
+  width: 30px;
+  margin-top: 16px;
+  border: 2.3px solid var(--color-purpura);
+  border-radius: 19px;
+}
+
+.circle{
+  --size: 22px;
+  display: inline-block;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background-color: white;
+  transform: translateY(12%);
+  animation: circle-animation 1s infinite  ease-in;
+}
+
+@keyframes circle-animation {
+
+  50%{
+    transform: translateY(178%);
+  }
+}
+
