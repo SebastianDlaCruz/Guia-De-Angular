@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ItemMenu } from '@core/models/item-menu';
-
+import { MenuDesplegableService } from '@shared/components/menu-desplegable/services/menu-desplegable.service';
 @Component({
   selector: 'app-cp',
   templateUrl: './cp.component.html',
@@ -9,14 +9,20 @@ import { ItemMenu } from '@core/models/item-menu';
 
 export class CpComponent {
 
+  private menuDes = inject(MenuDesplegableService);
+
+  OnToggle() {
+    this.menuDes.toggle();
+  }
+
   items: ItemMenu[] = [
     {
       name: 'Inicio',
-      url: '/componentes#index'
+      fragment: 'index'
     },
     {
       name: 'Ciclos de vida',
-      url: '/componentes#ciclo-vida'
+      fragment: 'ciclo-vida'
     }
   ]
 }

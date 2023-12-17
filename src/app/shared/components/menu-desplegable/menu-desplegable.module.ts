@@ -2,15 +2,14 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuDesplegableComponent } from './menu-desplegable.component';
-
-
 @NgModule({
   declarations: [
-    MenuDesplegableComponent
+    MenuDesplegableComponent,
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+
   ],
   exports: [MenuDesplegableComponent]
 })

@@ -8,7 +8,9 @@
   </ul>
   <p>Un componente se puede crear de dos maneras. Usando el cli de angular o de manera manual.</p>
   <ul class="list-style-none">
-    <li><b>Cli:</b> <code> ng g c miComponente / ng generate componente miComponente </code></li>
+    <li><b>Cli:</b>
+      <code> <span appHighlight> ng g c miComponente </span> / <span appHighlight> ng generate componente miComponente</span>  </code>
+    </li>
     <li><b>Manual:</b> Generando los 3 archivo manualmente. ¯\(ツ)/¯ </li>
   </ul>
 </div>
@@ -186,10 +188,31 @@
       @ContentChild(ChildComponent) contentChild!: ChildComponent;
       ngAfterContentInit() {
         // contentChild is set after the content has been initialized
-        this.contentChild.name
+        this.contentChild.name = 'Hola XD'
+
       }
     }" />
+
+    <article>
+      <h3>ngAfterContentChecked</h3>
+      <p>Este ciclo de vida va de la mano con el nombrado anteriormente.Responde después de que angular verifique el
+        contenido del proyecto en la directiva o componente. </p>
+      <app-code-example Code="
+        export class FatherComponent implements AfterContentChecked {
+          @ContentChild(ChildComponent) contentChild!: ChildComponent;
+          ngA AfterContentChecked() {
+            this.contentChild.name = 'Hola XD'
+          }
+        }" />
+      <p>En resumen AfterContentInit se ejecuta una vez que el contenido se a proyectado ha sido inicializado, mientras
+        que AfterContentChecked se ejecuta después de cada verificación de cambios en el contenido proyectado. </p>
+    </article>
+
+    <article>
+      <h3>ngAfterViewInit</h3>
+    </article>
+
   </section>
 </main>
-
-<app-menu-desplegable [itemsMenu]="items" />
+<button (click)="OnToggle()">Menu desplegable</button>
+<app-menu-desplegable [itemsMenu]="items" [url]="'/componentes'" />
